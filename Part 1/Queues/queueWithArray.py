@@ -22,7 +22,7 @@ class QueueArray():
         if self.length == len(self.queue):
             raise Exception('Queue is Full!')
         
-        self.queue[self.length] = item
+        self.queue[self.r] = item
         
         self.r = (self.r + 1) % len(self.queue)
         self.length += 1
@@ -55,12 +55,28 @@ class QueueArray():
 
 # let's test this stuff mate
 
+def queueInfo(queue):
+    print('queue:', queue.queue)
+    print('length:', queue.length)
+    print('front:', queue.f)
+    print('rear:', queue.r)
+    print('peak:', queue.peek())
+    print('is empty:',queue.isEmpty())
+    print('is full:', queue.isFull())
+    print('='*20)
+
 testQ = QueueArray(5)
 testQ.enqueue(1)
 testQ.enqueue(2)
 testQ.enqueue(3)
 testQ.enqueue(4)
 testQ.enqueue(5)
+queueInfo(testQ)
+print(testQ.dequeue())
+queueInfo(testQ)
+testQ.enqueue(6)
+queueInfo(testQ)
+
 
 # testQ.enqueue(6) # should throw an error
 # print(testQ.queue)
@@ -71,15 +87,15 @@ testQ.enqueue(5)
 # print(testQ.queue) # [1,2,3,4,5]
 # print(testQ.dequeue()) # 1
 # print(testQ.dequeue()) # 2
-print(testQ.length) # 3
-# testQ.enqueue(6)
-# print(testQ.peek()) # 3
-print(testQ.queue)
-# print(testQ.f)
-# print(testQ.r)
-print(testQ.isEmpty()) # F
-print(testQ.isFull()) # True
+# print(testQ.length) # 3
+# # testQ.enqueue(6)
+# # print(testQ.peek()) # 3
 # print(testQ.queue)
+# # print(testQ.f)
+# # print(testQ.r)
+# print(testQ.isEmpty()) # F
+# print(testQ.isFull()) # True
+# # print(testQ.queue)
 # print(testQ.length) # 4
 # print(testQ.dequeue())
 # print(testQ.dequeue())
@@ -87,30 +103,32 @@ print(testQ.isFull()) # True
 # print(testQ.dequeue())
 # print(testQ.isEmpty())
 # print(testQ.length)
-print(testQ.dequeue()) 
-print(testQ.dequeue()) 
-print(testQ.dequeue()) 
-print(testQ.dequeue()) 
-print(testQ.dequeue()) 
+# print(testQ.dequeue()) 
+# print(testQ.dequeue()) 
+# print(testQ.dequeue()) 
+# print(testQ.dequeue()) 
+# print(testQ.dequeue()) 
 
-print('-'*20)
-testQ.enqueue(1)
-testQ.enqueue(2)
-testQ.enqueue(3)
-testQ.enqueue(4)
-testQ.enqueue(5)
+# print('-'*20)
+# testQ.enqueue(1)
+# testQ.enqueue(2)
+# testQ.enqueue(3)
+# testQ.enqueue(4)
+# testQ.enqueue(5)
 
-testQ.dequeue()
-testQ.dequeue()
-testQ.dequeue()
-print(testQ.queue)
+# testQ.dequeue()
+# testQ.dequeue()
+# testQ.dequeue()
+# print(testQ.queue)
 
-print(testQ.f)
-print(testQ.r)
+# print(testQ.f)
+# print(testQ.r)
 
-testQ.enqueue(6)
-testQ.enqueue(7)
+# testQ.enqueue(6)
+# testQ.enqueue(7)
+# testQ.enqueue(8)
+# # testQ.enqueue(9)
 
-print(testQ.queue)
+# print(testQ.queue)
 
 #TODO: What the fuck is the problem with my code.
