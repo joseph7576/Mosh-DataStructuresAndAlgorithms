@@ -31,7 +31,7 @@ print(stack.peek())
 stack.push(3)
 print(stack.peek())
 print(stack.toArray()) # it's itself an array! / technically a list
-stack.pop()
+print(stack.pop())
 stack.pop()
 print(stack.isEmpty())
 stack.pop()
