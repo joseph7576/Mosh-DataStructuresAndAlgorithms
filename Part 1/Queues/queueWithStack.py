@@ -11,10 +11,10 @@ class QueueStack():
             raise Exception('Queue is full!')
         
         if self.front:
-            while self.front: # empty front to back
+            while self.front: # empty front to back // O(n)
                 self.rear.append(self.front.pop())
             self.front.append(item) # add item to front
-            while self.rear: # fill the front
+            while self.rear: # fill the front // O(n)
                 self.front.append(self.rear.pop())        
             self.length += 1
             return
@@ -56,17 +56,87 @@ def queueInfo(queue):
     print('='*20)
     
 # it's testing time baby
-testQ = QueueStack(5)
+# testQ = QueueStack(5)
+# testQ.enqueue(1)
+# testQ.enqueue(2)
+# testQ.enqueue(3)
+# testQ.enqueue(4)
+# testQ.enqueue(5)
+# queueInfo(testQ)
+# print(testQ.dequeue())
+# queueInfo(testQ)
+# print(testQ.dequeue())
+# print(testQ.dequeue())
+# print(testQ.dequeue())
+# print(testQ.dequeue())
+# queueInfo(testQ)
+
+
+class PQueueStack():
+    def __init__(self, length:int): # fuck the length mate
+        self.front = [] # first stack
+        self.rear = [] # second stack
+        self.length = 0
+        self.max_length = length
+        
+    def enqueue(self, item):
+        if self.length == self.max_length:
+            raise Exception('Queue is full!')
+        
+        item_added = False
+        if self.front:
+            while self.front: # empty front to back // O(n)
+                front = self.front.pop()
+                if item < front and not item_added:
+                    self.rear.append(item)
+                    self.rear.append(front)
+                    item_added = True
+                else:
+                    self.rear.append(front)
+            if not item_added:
+                self.front.append(item) # add item to front
+            while self.rear: # fill the front // O(n)
+                self.front.append(self.rear.pop())        
+            self.length += 1
+            return
+        
+        # front is empty
+        self.front.append(item)
+        self.length += 1
+        return
+        
+    def dequeue(self):
+        if self.length == 0:
+            raise Exception('Queue is empty!')
+
+        front = self.front.pop()
+        self.length -= 1
+        return front
+    
+    def peek(self):
+        if self.length > 0:
+            return self.front[-1]
+        raise Exception('Queue is empty!')
+    
+    def isEmpty(self):
+        return False if self.front or self.rear else True
+    
+    def isFull(self):
+        return self.length == self.max_length
+    
+# test Priority Queue
+
+testQ = PQueueStack(5)
 testQ.enqueue(1)
-testQ.enqueue(2)
-testQ.enqueue(3)
 testQ.enqueue(4)
 testQ.enqueue(5)
+testQ.enqueue(2)
+testQ.enqueue(3)
 queueInfo(testQ)
-print(testQ.dequeue())
-queueInfo(testQ)
-print(testQ.dequeue())
-print(testQ.dequeue())
-print(testQ.dequeue())
-print(testQ.dequeue())
-queueInfo(testQ)
+# print(testQ.dequeue())
+# queueInfo(testQ)
+# print(testQ.dequeue())
+# print(testQ.dequeue())
+# print(testQ.dequeue())
+# print(testQ.dequeue())
+# queueInfo(testQ)
