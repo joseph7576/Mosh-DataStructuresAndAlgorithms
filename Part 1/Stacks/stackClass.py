@@ -20,6 +20,9 @@ class Stack():
     def isEmpty(self):
         return False if self.stack else True
     
+    def toArray(self):
+        return self.stack #? Am i really cheating? :(
+    
 
 stack = Stack()
 stack.push(1)
@@ -27,8 +30,10 @@ stack.push(2)
 print(stack.peek())
 stack.push(3)
 print(stack.peek())
+print(stack.toArray()) # it's itself an array! / technically a list
 stack.pop()
 stack.pop()
 print(stack.isEmpty())
 stack.pop()
 print(stack.isEmpty())
+print(type(stack.toArray()))
