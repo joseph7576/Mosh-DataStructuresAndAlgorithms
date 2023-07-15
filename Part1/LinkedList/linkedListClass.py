@@ -14,7 +14,7 @@ class LinkedList():
     def __init__(self, first=None, last=None, length=None):
         self.first = first
         self.last = last
-        self.length = length if length else 0
+        self.length = length if length else 0 #TODO: fix the length thing
         
     def addFirst(self, value):
         if self.length == 0:
@@ -129,7 +129,7 @@ class LinkedList():
                 current_node = next_node
                 next_node = next_temp
             self.first, self.last = self.last, self.first
-                
+    
     def getKthFromTheEnd(self, k:int):
         dis = k - 1
         p1 = p2 = self.first
@@ -151,8 +151,44 @@ class LinkedList():
                 p1 = current_p1.next # type: ignore
                 current_p1 = p1
         return p1.value # type: ignore
-            
+    
+    
+    def getValueFromIndex(self, index):
+        if self.length == 0:
+            return -1
+        if index == 0:
+            return self.first.value
+        elif index == self.length - 1:
+            return self.last.value
+        else:
+            current_node = self.first
+            for i in range(index):
+                current_node = current_node.next
+            return current_node.value
         
+            
+    def delete(self, value):
+        if not self.contains(value):
+            raise Exception(f'{value} Not Exist!')
+        
+        current_node = self.first
+        previous_node = self.first
+        
+        for i in range(self.length):
+            if current_node.value == value:
+                if current_node == self.first:
+                    self.deleteFirst()
+                    return
+                elif current_node == self.last:
+                    self.deleteLast()
+                    return
+                previous_node.next = current_node.next
+                self.length -= 1
+                return
+            previous_node = current_node
+            current_node = current_node.next
+            
+        print('something went wrong')
             
 
 # test
@@ -168,6 +204,16 @@ linkedtest.addFirst(4)
 linkedtest.addLast(40)
 # print(linkedtest.length) # -> 4
 # linkedtest.printList()
+
+
+# test get value
+print(linkedtest.getValueFromIndex(0))
+print(linkedtest.getValueFromIndex(2))
+print(linkedtest.getValueFromIndex(5))
+print(linkedtest.getValueFromIndex(7))
+
+linkedtest.delete(4)
+
 
 # linkedtest.printList()
 print(linkedtest.toList())
